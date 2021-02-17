@@ -2,10 +2,9 @@ import cv2 as cv
 
 
 recognizer = cv.face.LBPHFaceRecognizer_create()
-recognizer.read('trainer.yml')
-cascadePath = "haarcascade_frontalface_default.xml"
-faceCascade = cv.CascadeClassifier(cascadePath);
-font = cv.FONT_HERSHEY_SIMPLEX
+recognizer.read('fixed.yml')
+faceCascade = cv.CascadeClassifier("haarcascade_frontalface_default.xml")
+font = cv.FONT_HERSHEY_COMPLEX
 
 #Daha önce id atadığımız insanları, listeye ekliyoruz.
 id = 0
@@ -29,10 +28,10 @@ while True:
         minSize=(int(minW), int(minH)),
     )
     for (x, y, w, h) in faces:
-        cv.rectangle(img, (x, y), (x + w, y + h), (0, 0, 0), 7)
+        cv.rectangle(img, (x, y), (x + w, y + h), (30, 200, 240), 7)
         id, benzerlik = recognizer.predict(gray[y:y + h, x:x + w])
-        # Eğer benzerlik 40 tan büyükse kişiyi eşleştir.
-        if (benzerlik < 60):
+        # Eğer benzerlik 15 tan büyükse kişiyi eşleştir.
+        if (benzerlik < 85):
             id = names[id]
             benzerlik = "  {0}%".format(round(100 - benzerlik))
         else:
@@ -40,7 +39,7 @@ while True:
             benzerlik = "  {0}%".format(round(100 - benzerlik))
 
         #Üst tarafta yapılan eşlemenin sonuçlarını yaz.
-        cv.putText(img, str(id), (x + 100, y - 5), font, 1, (255, 255, 255), 5)
+        cv.putText(img, str(id), (x + 100, y - 5), font, 1, (255, 255, 255), 2)
         cv.putText(img, str(benzerlik), (x - 20 , y + h - 5), font, 1, (255, 255, 255), 3)
     cv.imshow('camera', img)
 
