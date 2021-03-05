@@ -18,7 +18,8 @@ while True:
     for (x, y, w, h) in faces:
         cv.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
         count += 1
-        cv.imwrite("DATA/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y + h, x:x + w])
+        if count % 3 == 0:
+            cv.imwrite("DATA/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y + h, x:x + w])
     k = cv.waitKey(100) & 0xff  # çıkmak için esc yap
     if k == 27:
         break

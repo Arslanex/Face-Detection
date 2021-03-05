@@ -8,7 +8,8 @@ font = cv.FONT_HERSHEY_COMPLEX
 
 #Daha önce id atadığımız insanları, listeye ekliyoruz.
 id = 0
-names = ['None', 'ADMIN', '', '', '', '']
+names = ['None', 'ADMIN', 'Mustafa', '', '', '']
+
 
 cam = cv.VideoCapture(1)
 cam.set(3, 640)
@@ -20,7 +21,7 @@ minH = 0.05 * cam.get(4)
 while True:
     ret, img = cam.read()
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-
+    print(cam.get(cv.CAP_PROP_FPS))
     faces = faceCascade.detectMultiScale(
         gray,
         scaleFactor=1.1,
@@ -47,6 +48,7 @@ while True:
     k = cv.waitKey(10) & 0xff
     if k == 27:
         break
+
 
 #Çıkış İşlemleri
 print("\n [INFO] Programdan çıkılıyor.")
